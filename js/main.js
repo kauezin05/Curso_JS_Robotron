@@ -1,5 +1,7 @@
 /*querySelectorAll = busca todos os elementos com o mesmo parametro de busca*/
-
+const robotron = document.querySelector("#robotron")
+const controle = document.querySelectorAll("[data-controle]")
+const estatisticas = document.querySelector("[data-estatisticas]")
 const pecas = {
     "bracos": {
         "forca": 29,
@@ -36,16 +38,12 @@ const pecas = {
 
 
 
-const robotron = document.querySelector("#robotron")
-const subtrair = document.querySelector("#subtrair")
-const somar = document.querySelector("#somar")
-const braco = document.querySelector("#braco")
-const controle = document.querySelectorAll("[data-controle]")
 
 controle.forEach( (elemento) => {
     elemento.addEventListener("click", (evento) => {
         manipulaDados(evento.target.dataSet.controle, evento.target.parentNode)
     })
+    atualizaEstatisticas(evento.target.dataSet.peca)
 })
 
 
@@ -59,6 +57,13 @@ function manipulaDados(operacao, controle) {
         peca.value = parseInt(peca.value) + 1;
     }
 }
+
+function atualizaEstatisticas(peca){
+    estatisticas.forEach( (elemento) => {
+        elemento.textContent = parseInt(elemento.textContent) + pecas[peca][elemento.dataSet.estatisticas]
+    })
+}
+
 
 // /* QUALQUER PONTO QUE TIVER UMA INTERAÇÃO DE CLICK, PEGARA AS INFORMAÇÕES DE ONDE FOI CLICADO, PASSARA COMO PARAMETRO E EXIBIRÁ ESSE PARAMETRO */
 // robotron.addEventListener("click", (evento) => {
